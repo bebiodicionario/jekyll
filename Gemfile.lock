@@ -77,5 +77,4 @@ DEPENDENCIES
   kramdown-parser-gfm
   tzinfo-data
 
-BUNDLED WITH
-   1.17.2
+
