@@ -4,6 +4,10 @@ gem "jekyll", "~> 3.9"
 gem "jekyll-seo-tag"
 gem "jekyll-sitemap"
 
+# Ruby 3.4+ compatibility
+gem "base64"
+gem "webrick"
+
 group :jekyll_plugins do
   gem "jekyll-feed"
 end
