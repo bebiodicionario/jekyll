@@ -1,3 +1,6 @@
 [build]
   command = "bundle exec jekyll build -s docs --config docs/_config.yml"
   publish = "_site"
+
+[build.environment]
+  RUBY_VERSION = "3.2.2"
