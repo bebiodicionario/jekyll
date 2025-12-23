@@ -1,0 +1,291 @@
+/* Project Grid */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    column-gap: 2rem;
+    row-gap: 4rem;
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-card {
+    display: block;
+    text-decoration: none !important;
+    border-bottom-style: none !important;
+
+    .project-image {
+        aspect-ratio: 3/2;
+        overflow: hidden;
+        margin-bottom: 0.8rem;
+        /* No background color */
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+    }
+
+    /* Minimalist hover: just fade image slightly */
+    &:hover .project-image img {
+        opacity: 0.8;
+    }
+
+
+    .project-title {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+        font-weight: 400;
+        color: #000;
+        text-transform: uppercase;
+    }
+
+    .project-location {
+        font-size: 0.8rem;
+        color: #888;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    &:hover .project-title {
+        color: #666;
+    }
+
+    a {
+        border-bottom: none !important;
+
+    }
+
+    &:hover {
+        border-bottom: none !important;
+    }
+}
+
+/* Archipelago Grid Spacer */
+.project-spacer {
+    display: block;
+    width: 100%;
+    /* Match the approximate height of a card including image and text */
+    pointer-events: none;
+    /* Let clicks pass through if anything overlaps */
+
+    @media (max-width: 600px) {
+        display: none;
+        /* Hide spacers on mobile to save vertical scrolling space */
+    }
+}
+
+/* Project Detail */
+.project-detail {
+    animation: fadeIn 0.8s ease;
+}
+
+.project-header {
+    max-width: 900px;
+    margin: 0 0 4rem;
+    text-align: left;
+    /* Aligned left usually feels more modernist/grid-like */
+
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+
+        @media (max-width: 768px) {
+            font-size: 1.8rem;
+        }
+    }
+
+    .subtitle {
+        color: #666;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}
+
+.project-main-image {
+    margin-bottom: 4rem;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.project-content-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    /* Tighter sidebar */
+    gap: 4rem;
+    margin-bottom: 8rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+.project-specs {
+    font-size: 0.8rem;
+    position: sticky;
+    top: 2rem;
+
+    @media (max-width: 900px) {
+        position: static;
+        margin-bottom: 3rem;
+    }
+
+    h3 {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+        color: #000;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+
+            strong {
+                font-weight: 400;
+                color: #888;
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                margin-bottom: 0.2rem;
+                letter-spacing: 0.05em;
+            }
+
+            span {
+                color: #333;
+            }
+        }
+    }
+}
+
+.project-specs li {
+    line-height: 1.4;
+}
+
+.project-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 750px;
+
+    p {
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+}
+
+.project-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* Tighter gap for images */
+
+    .gallery-item {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        /* Center images if they are narrower than the column */
+
+        img {
+            width: auto;
+            max-width: 100%;
+            max-height: 95vh;
+            /* Ensure image fits within viewport height */
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* About Page Specifics */
+.about-page {
+    h3 {
+        margin-top: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #000;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+    }
+
+    p {
+        max-width: 800px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        color: #444;
+    }
+
+    /* Target the bold sub-headers in Markdown */
+    strong {
+        font-weight: 500;
+        color: #000;
+    }
+
+    /* When strong is a paragraph on its own (like "Academic Background"), or just standard paragraphs */
+    p>strong:only-child {
+        display: block;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #888;
+        font-weight: 400;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2rem 0;
+
+        li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            padding-left: 0;
+            display: block;
+            position: relative;
+
+            strong {
+                color: #888;
+                font-weight: 400;
+                margin-right: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    }
+}

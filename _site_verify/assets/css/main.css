@@ -1,0 +1,353 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --accent-color: #888888;
+  --spacing-unit: 1rem;
+  --container-width: 1400px; }
+
+html {
+  font-size: 16px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.5;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  margin-top: 0;
+  color: inherit;
+  letter-spacing: -0.01em; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease; }
+  a:hover {
+    color: #000;
+    border-bottom-color: #000; }
+
+img {
+  max-width: 100%;
+  display: block; }
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 4rem; }
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1.5rem; } }
+
+.site-header {
+  padding: 2rem 0;
+  margin-bottom: 4rem; }
+  .site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline; }
+  .site-header .site-title {
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: #000; }
+  .site-header .site-nav {
+    display: flex;
+    gap: 2rem; }
+    .site-header .site-nav a {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+      transition: color 0.2s; }
+      .site-header .site-nav a:hover, .site-header .site-nav a.active {
+        color: #000; }
+
+.site-footer {
+  margin-top: 8rem;
+  padding: 2rem 0;
+  text-align: left;
+  font-size: 0.75rem;
+  color: #aaa; }
+  .site-footer .container {
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem; }
+
+/* Landing Page */
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh; }
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  width: 100%; }
+  @media (min-width: 768px) {
+    .landing-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; } }
+  @media (min-width: 1200px) {
+    .landing-grid {
+      gap: 6rem; } }
+
+.landing-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  opacity: 1;
+  transition: opacity 0.3s ease; }
+  .landing-item:hover {
+    opacity: 0.7; }
+
+.landing-image {
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  /* &:hover img { filter: grayscale(0%); } */ }
+  .landing-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* filter: grayscale(100%); Optional: for extra modernism */
+    transition: filter 0.3s; }
+
+.landing-title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  margin: 0;
+  color: #000; }
+
+/* Project Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  column-gap: 2rem;
+  row-gap: 4rem; }
+  @media (max-width: 600px) {
+    .project-grid {
+      grid-template-columns: 1fr; } }
+
+.project-card {
+  display: block;
+  text-decoration: none !important;
+  border-bottom-style: none !important;
+  /* Minimalist hover: just fade image slightly */ }
+  .project-card .project-image {
+    aspect-ratio: 3/2;
+    overflow: hidden;
+    margin-bottom: 0.8rem;
+    /* No background color */ }
+    .project-card .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease; }
+  .project-card:hover .project-image img {
+    opacity: 0.8; }
+  .project-card .project-title {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    font-weight: 400;
+    color: #000;
+    text-transform: uppercase; }
+  .project-card .project-location {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+    font-weight: 400; }
+  .project-card:hover .project-title {
+    color: #666; }
+  .project-card a {
+    border-bottom: none !important; }
+  .project-card:hover {
+    border-bottom: none !important; }
+
+/* Archipelago Grid Spacer */
+.project-spacer {
+  display: block;
+  width: 100%;
+  /* Match the approximate height of a card including image and text */
+  pointer-events: none;
+  /* Let clicks pass through if anything overlaps */ }
+  @media (max-width: 600px) {
+    .project-spacer {
+      display: none;
+      /* Hide spacers on mobile to save vertical scrolling space */ } }
+
+/* Project Detail */
+.project-detail {
+  animation: fadeIn 0.8s ease; }
+
+.project-header {
+  max-width: 900px;
+  margin: 0 0 4rem;
+  text-align: left;
+  /* Aligned left usually feels more modernist/grid-like */ }
+  .project-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.2; }
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 1.8rem; } }
+  .project-header .subtitle {
+    color: #666;
+    font-size: 1rem;
+    font-weight: 400; }
+
+.project-main-image {
+  margin-bottom: 4rem; }
+  .project-main-image img {
+    width: 100%;
+    height: auto; }
+
+.project-content-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  /* Tighter sidebar */
+  gap: 4rem;
+  margin-bottom: 8rem;
+  align-items: start; }
+  @media (max-width: 900px) {
+    .project-content-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem; } }
+
+.project-specs {
+  font-size: 0.8rem;
+  position: sticky;
+  top: 2rem; }
+  @media (max-width: 900px) {
+    .project-specs {
+      position: static;
+      margin-bottom: 3rem; } }
+  .project-specs h3 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+    color: #000; }
+  .project-specs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+    .project-specs ul li {
+      margin-bottom: 1.2rem;
+      display: flex;
+      flex-direction: column; }
+      .project-specs ul li strong {
+        font-weight: 400;
+        color: #888;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+        letter-spacing: 0.05em; }
+      .project-specs ul li span {
+        color: #333; }
+
+.project-specs li {
+  line-height: 1.4; }
+
+.project-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 750px; }
+  .project-description p {
+    margin-bottom: 1.5rem;
+    color: #333; }
+
+.project-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* Tighter gap for images */ }
+  .project-gallery .gallery-item {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    /* Center images if they are narrower than the column */ }
+    .project-gallery .gallery-item img {
+      width: auto;
+      max-width: 100%;
+      max-height: 95vh;
+      /* Ensure image fits within viewport height */
+      height: auto;
+      display: block;
+      object-fit: contain; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px); }
+  to {
+    opacity: 1;
+    transform: translateY(0); } }
+/* About Page Specifics */
+.about-page {
+  /* Target the bold sub-headers in Markdown */
+  /* When strong is a paragraph on its own (like "Academic Background"), or just standard paragraphs */ }
+  .about-page h3 {
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem; }
+  .about-page p {
+    max-width: 800px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: #444; }
+  .about-page strong {
+    font-weight: 500;
+    color: #000; }
+  .about-page p > strong:only-child {
+    display: block;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    font-weight: 400; }
+  .about-page ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0; }
+    .about-page ul li {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+      padding-left: 0;
+      display: block;
+      position: relative; }
+      .about-page ul li strong {
+        color: #888;
+        font-weight: 400;
+        margin-right: 0.5rem;
+        font-size: 0.9rem; }

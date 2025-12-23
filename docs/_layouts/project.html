@@ -1,0 +1,142 @@
+---
+layout: default
+---
+<article class="project-detail">
+    <div class="container">
+        <header class="project-header">
+            <h1>
+                {% if page.lang == 'en' %}
+                {{ page.title_en | default: page.title }}
+                {% else %}
+                {{ page.title }}
+                {% endif %}
+            </h1>
+            <p class="subtitle">
+                {% if page.lang == 'en' %}
+                {{ page.location_en | default: page.location }} — {{ page.year }}
+                {% else %}
+                {{ page.location }} — {{ page.year }}
+                {% endif %}
+            </p>
+        </header>
+
+        {% comment %}
+        Get the gallery images from the current directory
+        {% endcomment %}
+
+        {% assign asset_dir = page.dir %}
+        {% if page.lang == 'en' %}
+        {% assign asset_dir = page.dir | replace: '/en/', '/' %}
+        {% endif %}
+
+        {% if page.main_image %}
+        <div class="project-main-image">
+            <img src="{{ asset_dir }}{{ page.main_image }}" alt="{{ page.title }}">
+        </div>
+        {% endif %}
+
+        <div class="project-content-grid">
+            <aside class="project-specs">
+                <h3>
+                    {% if page.lang == 'en' %}
+                    {{ site.data.ui.en.specs }}
+                    {% else %}
+                    {{ site.data.ui.pt.specs }}
+                    {% endif %}
+                </h3>
+                <ul>
+                    {% comment %}
+                    Use a controlled list of keys to ensure order and translation.
+                    Front matter should use canonical keys: location, year, area, architects, photographs, manufacturers
+                    {% endcomment %}
+                    {% assign spec_keys =
+                    "location,year,area,architects,design_team,wood_structure,installations,window_frames,photographs,manufacturers"
+                    | split: "," %}
+
+                    {% for key in spec_keys %}
+                    {% assign spec_value = page.specs[key] | default: page[key] %}
+                    {% if spec_value %}
+                    <li>
+                        {% if page.lang == 'en' %}
+                        <strong>{{ site.data.ui.en[key] | default: key | capitalize }}</strong>
+                        {% else %}
+                        <strong>{{ site.data.ui.pt[key] | default: key | capitalize }}</strong>
+                        {% endif %}
+
+                        <span>
+                            {% if page.lang == 'en' %}
+                            {% assign key_en = key | append: "_en" %}
+                            {% assign spec_value_en = page.specs[key_en] | default: page[key_en] %}
+                            {% assign final_val = spec_value_en | default: spec_value %}
+                            {% else %}
+                            {% assign final_val = spec_value %}
+                            {% endif %}
+
+                            {% comment %} Apply external matches {% endcomment %}
+                            {% for link_entry in site.data.links %}
+                            {% assign link_text = link_entry[0] %}
+                            {% assign link_url = link_entry[1] %}
+                            {% capture link_html %}<a href="{{ link_url }}" target="_blank" rel="noopener">{{ link_text
+                                }}</a>{% endcapture %}
+                            {% assign final_val = final_val | replace: link_text, link_html %}
+                            {% endfor %}
+
+                            {{ final_val }}
+                        </span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </aside>
+
+            <div class="project-description">
+                {% if page.lang == 'en' %}
+                {% if page.description_en %}
+                {{ page.description_en | markdownify }}
+                {% else %}
+                <p><em>English description coming soon.</em></p>
+                {% endif %}
+                {% else %}
+                {% if page.description %}
+                {{ page.description | markdownify }}
+                {% else %}
+                {{ content }}
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="project-gallery">
+            {% assign gallery_images = "" | split: "" %}
+
+            {% for file in site.static_files %}
+            {% if file.path contains asset_dir %}
+            {% assign ext = file.extname | downcase %}
+            {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".gif" %}
+            {% unless file.name == page.main_image or file.name == "cover.jpg" %}
+            {% assign gallery_images = gallery_images | push: file.path %}
+            {% endunless %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+
+            {% assign gallery_images = gallery_images | sort %}
+
+            {% for img_url in gallery_images %}
+            <figure class="gallery-item">
+                <img src="{{ img_url }}" alt="Gallery image for {{ page.title }}" loading="lazy">
+            </figure>
+            {% endfor %}
+
+            {% comment %} Fallback/Legacy: If no folder images, use front matter gallery {% endcomment %}
+            {% if gallery_images.size == 0 and page.gallery_images %}
+            {% for img in page.gallery_images %}
+            <figure class="gallery-item">
+                <img src="{{ img }}" alt="Gallery image for {{ page.title }}" loading="lazy">
+            </figure>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</article>

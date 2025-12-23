@@ -1,0 +1,88 @@
+---
+layout: default
+permalink: /projects/
+title: Projetos
+title_en: Projects
+---
+
+<div class="container">
+    <div class="project-grid" id="projectGrid">
+        {% assign all_projects = site.pages | where: "layout", "project" %}
+        {% assign projects = "" | split: "" %}
+
+        {% for p in all_projects %}
+        {% assign p_lang = p.lang | default: 'pt' %}
+        {% assign current_lang = page.lang | default: 'pt' %}
+        {% if p_lang == current_lang %}
+        {% assign projects = projects | push: p %}
+        {% endif %}
+        {% endfor %}
+
+        {% assign projects = projects | sort: "year" | reverse %}
+
+        {% for project in projects %}
+        {% assign project_asset_dir = project.dir %}
+        {% if project.lang == 'en' %}
+        {% assign project_asset_dir = project.dir | replace: '/en/', '/' %}
+        {% endif %}
+
+        {% assign tipos = project.tipo | join: " " | downcase %}
+        <a href="{{ project.url | relative_url }}" class="project-card" data-tipo="{{ tipos }}">
+            <div class="project-image">
+                <img src="{{ project_asset_dir }}{{ project.main_image }}" alt="{{ project.title }}" loading="lazy">
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">
+                    {% if page.lang == 'en' %}
+                    {{ project.title_en | default: project.title }}
+                    {% else %}
+                    {{ project.title }}
+                    {% endif %}
+                </h2>
+                <p class="project-location">
+                    {% if page.lang == 'en' %}
+                    {{ project.location_en | default: project.location }} — {{ project.year }}
+                    {% else %}
+                    {{ project.location }} — {{ project.year }}
+                    {% endif %}
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Archipelago Layout: Inject random spacers
+        const grid = document.getElementById('projectGrid');
+        const cards = Array.from(grid.querySelectorAll('.project-card'));
+        const spacerChance = 0.25; // 25% chance of a spacer
+
+        // We iterate backwards or just insert carefully to not mess up the loop, 
+        // but converting to Array fixes the live NodeList issue.
+        cards.forEach(card => {
+            if (Math.random() < spacerChance) {
+                const spacer = document.createElement('div');
+                spacer.className = 'project-spacer';
+                // Insert spacer before the current card
+                grid.insertBefore(spacer, card);
+            }
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('cat');
+
+        if (category) {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                const cardTypes = card.getAttribute('data-tipo');
+                if (cardTypes && cardTypes.includes(category.toLowerCase())) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>

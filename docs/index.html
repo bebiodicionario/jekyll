@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<div class="container landing-container">
+    <div class="landing-grid">
+        <a href="/projects/?cat=paisagem" class="landing-item">
+            <div class="landing-image">
+                <img src="/projects/casa-fazenda-bocaina/casa-fazenda-bocaina-01.jpg" alt="Paisagem" loading="lazy">
+            </div>
+            <h2 class="landing-title">
+                {% if page.lang == 'en' %}Landscape{% else %}Paisagem{% endif %}
+            </h2>
+        </a>
+        <a href="/projects/?cat=forma" class="landing-item">
+            <div class="landing-image">
+                <img src="/projects/casa-em-cunha/casa-em-cunha-01.jpg" alt="Forma" loading="lazy">
+            </div>
+            <h2 class="landing-title">
+                {% if page.lang == 'en' %}Form{% else %}Forma{% endif %}
+            </h2>
+        </a>
+        <a href="/projects/?cat=estrutura" class="landing-item">
+            <div class="landing-image">
+                <img src="/projects/casas-modulares-piracaia/casas-modulares-piracaia-01.jpg" alt="Estrutura"
+                    loading="lazy">
+            </div>
+            <h2 class="landing-title">
+                {% if page.lang == 'en' %}Structure{% else %}Estrutura{% endif %}
+            </h2>
+        </a>
+    </div>
+</div>
